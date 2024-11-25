@@ -8,6 +8,7 @@
 import Foundation
 import Vapor
 import GroceryAppSharedDTO
+import Fluent
 
 class GroceryController: RouteCollection {
     
@@ -16,8 +17,24 @@ class GroceryController: RouteCollection {
         // /api/users/:userId
         let api = routes.grouped("api", "users", ":userId")
         
-        // /api/users/:userId/grocery-categories
+        // POST: /api/users/:userId/grocery-categories
         api.post("grocery-categories", use: saveGroceryCategory)
+        
+        // GET: /api/users/:userId/grocery-categories
+        api.get("grocery-categories", use: getGroceryCategoriesByUser)
+        
+    }
+    
+    func getGroceryCategoriesByUser(req: Request) async throws -> [GroceryCategoryResponseDTO] {
+        
+        guard let userId = req.parameters.get("userId", as: UUID.self) else {
+            throw Abort(.badRequest)
+        }
+        
+        return try await GroceryCategory.query(on: req.db)
+            .filter(\.$user.$id == userId)
+            .all()
+            .compactMap(GroceryCategoryResponseDTO.init)
         
     }
     
