@@ -11,7 +11,8 @@ let package = Package(
         .package(url: "https://github.com/apple/swift-nio.git", from: "2.65.0"),
         .package(url: "https://github.com/vapor/jwt.git", from: "4.2.2"),
         .package(url: "https://github.com/vapor/fluent.git", from: "4.0.0"),
-        .package(url: "https://github.com/vapor/fluent-postgres-driver.git", from: "2.0.0")
+        .package(url: "https://github.com/vapor/fluent-postgres-driver.git", from: "2.0.0"),
+        .package(url: "https://github.com/Rychillie/GroceryAppSharedDTO.git", branch: "main")
     ],
     targets: [
         .executableTarget(
@@ -22,7 +23,8 @@ let package = Package(
                 .product(name: "NIOPosix", package: "swift-nio"),
                 .product(name: "JWT", package: "jwt"),
                 .product(name: "Fluent", package: "fluent"),
-                .product(name: "FluentPostgresDriver", package: "fluent-postgres-driver")
+                .product(name: "FluentPostgresDriver", package: "fluent-postgres-driver"),
+                .product(name: "GroceryAppSharedDTO", package: "GroceryAppSharedDTO")
             ],
             swiftSettings: swiftSettings
         ),
