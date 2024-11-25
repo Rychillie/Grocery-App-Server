@@ -1,5 +1,5 @@
 //
-//  AuthPayloadModel.swift
+//  AuthPayload.swift
 //  grocery-app-server
 //
 //  Created by Rychillie Umpierre de Oliveira on 23/11/24.

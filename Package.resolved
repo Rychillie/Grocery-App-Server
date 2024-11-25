@@ -1,5 +1,5 @@
 {
-  "originHash" : "b1eeb5a35e0b4b3761f5c63faa3f1714a36c584d02734e4e1badfdab18368a4d",
+  "originHash" : "d01bf15c76d653162f499d40f2b904b24b4998b00a2dfaa7ae9ac60d7820ce66",
   "pins" : [
     {
       "identity" : "async-http-client",
@@ -61,7 +61,7 @@
       "location" : "https://github.com/Rychillie/GroceryAppSharedDTO.git",
       "state" : {
         "branch" : "main",
-        "revision" : "c4f2a7b2baa89c859995dae9b9b56f314ef8427d"
+        "revision" : "0e0d522a734b376d5e97037409ac74daec5f3dfc"
       }
     },
     {
