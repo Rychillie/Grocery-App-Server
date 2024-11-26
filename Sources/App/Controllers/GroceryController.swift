@@ -56,7 +56,7 @@ class GroceryController: RouteCollection {
             title: groceryItemRequestDTO.title,
             price: groceryItemRequestDTO.price,
             quantity: groceryItemRequestDTO.quantity,
-            groceryCategoryId: groceryCategoryId
+            groceryCategoryId: groceryCategory.id!
         )
         
         try await groceryItem.save(on: req.db)
