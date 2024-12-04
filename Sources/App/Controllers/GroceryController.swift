@@ -29,6 +29,35 @@ class GroceryController: RouteCollection {
         // POST: /api/users/:userId/grocery-categories/:groceryCategoryId/grocery-items
         api.post("grocery-categories", ":groceryCategoryId", "grocery-items", use: saveGroceryItem)
         
+        // GET: /api/users/:userId/grocery-categories/:groceryCategoryId/grocery-items
+        api.get("grocery-categories", ":groceryCategoryId", "grocery-items", use: getGroceryItemsByGroceryCategory)
+        
+    }
+    
+    func getGroceryItemsByGroceryCategory(req: Request) async throws -> [GroceryItemResponseDTO] {
+        
+        guard let userId = req.parameters.get("userId", as: UUID.self),
+              let groceryCategoryId = req.parameters.get("groceryCategoryId", as: UUID.self)
+        else {
+            throw Abort(.badRequest)
+        }
+        
+        guard let _ = try await User.find(userId, on: req.db) else {
+            throw Abort(.notFound)
+        }
+        
+        guard let groceryCategory = try await GroceryCategory.query(on: req.db)
+            .filter(\.$user.$id == userId)
+            .filter(\.$id == groceryCategoryId)
+            .first() else {
+            throw Abort(.notFound)
+        }
+        
+        return try await GroceryItem.query(on: req.db)
+            .filter(\.$groceryCategory.$id == groceryCategory.id!)
+            .all()
+            .compactMap(GroceryItemResponseDTO.init)
+        
     }
     
     func saveGroceryItem(req: Request) async throws -> GroceryItemResponseDTO {
