@@ -16,7 +16,7 @@ struct AppTests {
         }
         try await app.asyncShutdown()
     }
-    
+
     @Test("Test Hello World Route")
     func helloWorld() async throws {
         try await withApp { app in

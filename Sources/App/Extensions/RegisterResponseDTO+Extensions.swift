@@ -10,5 +10,5 @@ import GroceryAppSharedDTO
 import Vapor
 
 extension RegisterResponseDTO: Content {
-    
+
 }

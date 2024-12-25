@@ -9,7 +9,7 @@ import Foundation
 import Fluent
 
 class CreateGroceryCategoryTableMigration: AsyncMigration {
-    
+
     func prepare(on database: any Database) async throws {
         try await database.schema("grocery_categories")
             .id()
@@ -18,7 +18,7 @@ class CreateGroceryCategoryTableMigration: AsyncMigration {
             .field("user_id", .uuid, .required, .references("users", "id"))
             .create()
     }
-    
+
     func revert(on database: any Database) async throws {
         try await database.schema("grocery_categories").delete()
     }

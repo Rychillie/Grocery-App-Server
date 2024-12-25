@@ -14,7 +14,7 @@ extension GroceryItemResponseDTO: Content {
         guard let groceryItemId = groceryItem.id else {
             return nil
         }
-        
+
         self.init(
             id: groceryItemId,
             title: groceryItem.title,
