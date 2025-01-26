@@ -35,6 +35,24 @@ class GroceryController: RouteCollection {
         // DELETE: /api/users/:userId/grocery-categories/:groceryCategoryId/grocery-items/:groceryItemId
         api.delete("grocery-categories", ":groceryCategoryId", "grocery-items", ":groceryItemId", use: deleteGroceryItem)
 
+        // OPTIONAL: Get all grocery categories with their items
+        // GET: /api/users/:userId/grocery-categories-with-items
+        api.get("grocery-categories-with-items", use: getGroceryCategoriesWithITems)
+
+    }
+
+    func getGroceryCategoriesWithITems(req: Request) async throws -> [GroceryCategoryResponseDTO] {
+
+        guard let userId = req.parameters.get("userId", as: UUID.self) else {
+            throw Abort(.badRequest)
+        }
+
+        return try await GroceryCategory.query(on: req.db)
+            .filter(\.$user.$id == userId)
+            .with(\.$items)
+            .all()
+            .compactMap(GroceryCategoryResponseDTO.init)
+
     }
 
     func deleteGroceryItem(req: Request) async throws -> GroceryItemResponseDTO {
